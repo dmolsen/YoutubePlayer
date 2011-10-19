@@ -49,12 +49,24 @@
     /**
      * Add the given handler as a listener for the given event
      *
-     * @param eventName {String} name of the event
+     * @param eventName {String} name of the event, if multiple events are being supplied the same exact handler just separate by a comma
      * @param handler {Function} callback for the event
+	 * 
+	 * 'on' makes sense to me for events to fire based on states
+	 * 'at' makes sense to me for events fired at a particular time in the video
      */
-    YoutubePlayer.prototype.on = function(eventName, handler) {
-        this.handlers[eventName] = this.handlers[eventName] || [];
-        this.handlers[eventName].push(handler);
+    YoutubePlayer.prototype.on = YoutubePlayer.prototype.at = function(eventName, handler) {
+		if (eventName.indexOf(",") != -1) {
+			eventNames = eventName.split(",");
+			for (var i in eventNames) {
+				this.handlers[eventNames[i]] = this.handlers[eventNames[i]] || [];
+		        this.handlers[eventNames[i]].push(handler);
+			}
+		} else {
+			this.handlers[eventName] = this.handlers[eventName] || [];
+	        this.handlers[eventName].push(handler);
+		}
+        
     };
 
     /**
