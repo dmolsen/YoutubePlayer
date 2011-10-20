@@ -1,0 +1,51 @@
+<html>
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+	<script src="YoutubePlayer.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="container">
+<div id="video">
+	<div id="wvu"></div>
+	<script type="text/javascript">
+		var p = false;
+		var videoTimeRaw = 0;
+		var videoTimeRounded = 0;
+		var currentTime = 0;
+		var vidId = 'wvu';
+	
+		timeCheck = setInterval(function() {	
+			if (p != false) {
+				currentTime += 100;
+				wvuVideo.fireEvent(currentTime.toString());
+			}
+		}, 100);
+
+		var wvuVideo = new YoutubePlayer(vidId, 'vrpNkrT5Yqc');
+		
+		wvuVideo.on('unstarted,ended,paused,buffering,cued', function() {
+			p = false;
+		});
+		
+		wvuVideo.on('playing', function() {
+			videoTimeRaw = document.getElementById(vidId).getCurrentTime();
+			currentTime = Math.round(videoTimeRaw*10)*100;
+			p = true;
+		});
+		
+		wvuVideo.at('5000', function() {
+			console.log("5 seconds in");
+		});
+		
+		wvuVideo.at('5000', function() {
+			console.log("fired second event");
+		});
+	</script>
+</div>
+<div id="modify">
+hello world
+</div>
+</div>
+</body>
+</html>
