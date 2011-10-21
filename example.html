@@ -7,40 +7,58 @@
 <body>
 <div id="container">
 <div id="video">
-	<div id="wvu"></div>
+	<div id="videoEmbed"></div>
 	<script type="text/javascript">
-		var p = false;
-		var videoTimeRaw = 0;
-		var videoTimeRounded = 0;
-		var currentTime = 0;
-		var vidId = 'wvu';
 	
+		// don't change these variables
+		var p 					 	= false;
+		var videoTimeRaw	= 0;
+		var currentTime 	= 0;
+		
+		// every 100ms do the following:
+		//   - see if a video is playing. if it is:
+		//   		-- increment the currentTime tracker 100	
+		//   		-- fires an event that matches that currentTime
 		timeCheck = setInterval(function() {	
 			if (p != false) {
 				currentTime += 100;
-				wvuVideo.fireEvent(currentTime.toString());
+				YTVideo.fireEvent(currentTime.toString());
 			}
 		}, 100);
-
-		var wvuVideo = new YoutubePlayer(vidId, 'vrpNkrT5Yqc');
 		
-		wvuVideo.on('unstarted,ended,paused,buffering,cued', function() {
+		// configure these variables
+		var vidId 				= 'videoEmbed';		// the ID of the div holding the video
+		var vidYTId				= 'XhLrlhFzAjA';	// the ID of the video from YouTube
+		
+		// set-up the video
+		var YTVideo = new YoutubePlayer(vidId, vidYTId,{
+		    width: 640,
+		    height: 360,
+				chromeless: true,
+				ytparams: { rel: 0, showsearch: 0 },
+		    attrs:  { class: 'ytembed' }
+		});
+	
+		// listen for the standard events and note that the video ISN'T playing
+		YTVideo.on('unstarted,ended,paused,buffering,cued', function() {
 			p = false;
 		});
 		
-		wvuVideo.on('playing', function() {
+		// listen for when the video is played. update the currentTime incrementor based on
+		// where the user is in the video. note that the video IS playing.
+		YTVideo.on('playing', function() {
 			videoTimeRaw = document.getElementById(vidId).getCurrentTime();
 			currentTime = Math.round(videoTimeRaw*10)*100;
 			p = true;
+			
+			/* if you have anything else that should happen when a user hits play stick it here */
 		});
 		
-		wvuVideo.at('5000', function() {
+		// listen for when the video reaches 5000 milliseconds and do something
+		YTVideo.at('5000', function() {
 			console.log("5 seconds in");
 		});
 		
-		wvuVideo.at('5000', function() {
-			console.log("fired second event");
-		});
 	</script>
 </div>
 <div id="modify">
