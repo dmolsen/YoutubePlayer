@@ -18,7 +18,8 @@
 		this.width = '425';
 		this.height = '356';
 		this.flashVersion = '8';
-		this.params = { allowScriptAccess: 'always' };
+		this.objparams = { allowScriptAccess: 'always' };
+		this.ytparams = {};
 		this.attrs = { id: this.id };
 
 		var mergeOptions = function(from, into) {
@@ -27,8 +28,10 @@
 			}
 		};
 		if(options) {
-			if (options.params)
-				mergeOptions(options.params, this.params);
+			if (options.objparams)
+				mergeOptions(options.objparams, this.objparams);
+			if (options.ytparams)
+				mergeOptions(options.ytparams, this.ytparams);
 			if (options.attrs)
 				mergeOptions(options.attrs, this.attrs);
 			if (options.width)
@@ -58,18 +61,26 @@
      *
      */
     YoutubePlayer.prototype.embed = function() {
-        var params = { allowScriptAccess: 'always' };
-        var attrs = { id: this.id };
 
-        var videoUrl = 'http://www.youtube.com/v/{videoId}?enablejsapi=1&playerapiid={playerId}';
+		var yturlparams = '';
+		for (val in this.ytparams) {
+			yturlparams += '&'+val+'='+this.ytparams[val];
+		}
+		
+        var videoUrl = 'http://www.youtube.com/v/{videoId}?enablejsapi=1&playerapiid={playerId}'+yturlparams;
         videoUrl = videoUrl.replace('{videoId}', this.videoId);
         videoUrl = videoUrl.replace('{playerId}', this.id);
 
         if(!swfobject) {
             throw new ReferenceError('YoutubePlayer depends on the SWFObject library but it is missing.');
         }
-
-        swfobject.embedSWF(videoUrl, this.id, '425', '356', '8', null, null, params, attrs);
+		
+		var player = this;
+		swfobject.embedSWF(videoUrl, this.id, this.width, this.height,
+							this.flashVersion, null, null, this.objparams,
+							this.attrs, function(e){
+								player.ref = e.ref;
+							});
     };
 
     /**
