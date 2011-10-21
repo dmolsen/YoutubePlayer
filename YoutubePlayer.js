@@ -5,13 +5,39 @@
      * @constructor
      * @param {String} HTML id of the element containing the Youtube flash player
      * @param {String} Youtube video id
-     *
+     * @param (Object) Optional extra configuration data (from @ryanschneider's version of YoutubePlayer)
+	 * 
      * @returns {YoutubePlayer} An object of YoutubePlayer
      */
-    function YoutubePlayer(elementId, videoId) {
+    function YoutubePlayer(elementId, videoId, options) {
         this.id = elementId;
         this.videoId = videoId;
         this.handlers = {};
+		this.ref = null;
+
+		this.width = '425';
+		this.height = '356';
+		this.flashVersion = '8';
+		this.params = { allowScriptAccess: 'always' };
+		this.attrs = { id: this.id };
+
+		var mergeOptions = function(from, into) {
+			for( var key in from) {
+				into[key] = from[key];
+			}
+		};
+		if(options) {
+			if (options.params)
+				mergeOptions(options.params, this.params);
+			if (options.attrs)
+				mergeOptions(options.attrs, this.attrs);
+			if (options.width)
+				this.width = options.width;
+			if (options.height)
+				this.height = options.height;
+			if (options.flashVersion)
+				this.flashVersion = options.flashVersion;
+		}
 
         this.embed();
 
