@@ -18,8 +18,9 @@
 		this.width = '425';
 		this.height = '356';
 		this.flashVersion = '8';
+		this.chromeless = false;
 		this.objparams = { allowScriptAccess: 'always' };
-		this.ytparams = {};
+		this.ytparams = { version: 3 };
 		this.attrs = { id: this.id };
 
 		var mergeOptions = function(from, into) {
@@ -40,6 +41,8 @@
 				this.height = options.height;
 			if (options.flashVersion)
 				this.flashVersion = options.flashVersion;
+			if (options.chromeless)
+				this.chromeless = options.chromeless;
 		}
 
         this.embed();
@@ -67,9 +70,14 @@
 			yturlparams += '&'+val+'='+this.ytparams[val];
 		}
 		
-        var videoUrl = 'http://www.youtube.com/v/{videoId}?enablejsapi=1&playerapiid={playerId}'+yturlparams;
+		if (this.chromeless == true) {
+			var videoUrl = 'http://www.youtube.com/apiplayer?video_id={videoId}&version=3&enablejsapi=1&playerapiid={playerId}';	
+		} else {
+			var videoUrl = 'http://www.youtube.com/v/{videoId}?enablejsapi=1&playerapiid={playerId}{yturlparams}';
+		}
         videoUrl = videoUrl.replace('{videoId}', this.videoId);
         videoUrl = videoUrl.replace('{playerId}', this.id);
+		videoUrl = videoUrl.replace('{yturlparams', yturlparams);
 
         if(!swfobject) {
             throw new ReferenceError('YoutubePlayer depends on the SWFObject library but it is missing.');
