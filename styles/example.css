@@ -1,5 +1,6 @@
 body {
-	background-color: #282828;
+	-webkit-transition: background-color 600ms linear;
+	-moz-transition: background-color 600ms linear;
 	color: #fff;
 	font-family: helvetica, sans serif;
 }
@@ -33,4 +34,12 @@ body {
 
 .show {
 	opacity: 1;
+}
+
+.darken {
+	background-color: #191919;
+}
+
+.lighten {
+	background-color: #282828;
 }

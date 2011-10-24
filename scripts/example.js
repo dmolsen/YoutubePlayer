@@ -37,6 +37,7 @@ YTVideo.on('ended', function() {
 
 	// show the thank you message
 	document.getElementById('outro').setAttribute('class', 'text show');
+	document.getElementById('lights').setAttribute('class', 'lighten');
 });
 
 // listen for when the video is played. update the currentTime incrementor based on
@@ -51,6 +52,7 @@ YTVideo.on('playing', function() {
 	// hide the intro & outro text
 	document.getElementById('intro').setAttribute('class', 'text hide');
 	document.getElementById('outro').setAttribute('class', 'text hide');
+	document.getElementById('lights').setAttribute('class', 'darken');
 });
 
 // between 15secs and 21secs shoot off a firework every half a second
