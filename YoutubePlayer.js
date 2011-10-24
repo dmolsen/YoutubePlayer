@@ -70,7 +70,7 @@
 			yturlparams += '&'+val+'='+this.ytparams[val];
 		}
 		
-		if (this.chromeless == true) {
+		if (this.chromeless) {
 			var videoUrl = 'http://www.youtube.com/apiplayer?video_id={videoId}&version=3&enablejsapi=1&playerapiid={playerId}';	
 		} else {
 			var videoUrl = 'http://www.youtube.com/v/{videoId}?enablejsapi=1&playerapiid={playerId}{yturlparams}';
@@ -96,12 +96,23 @@
      *
      * @param eventName {String} name of the event, if multiple events are being supplied the same exact handler just separate by a comma
      * @param handler {Function} callback for the event
+	 * @param delay {Integer} used for range events to set how long to hold between repeating the function
 	 * 
 	 * 'on' makes sense to me for events to fire based on states
 	 * 'at' makes sense to me for events fired at a particular time in the video
      */
-    YoutubePlayer.prototype.on = YoutubePlayer.prototype.at = function(eventName, handler) {
-		if (eventName.indexOf(",") != -1) {
+    YoutubePlayer.prototype.on = YoutubePlayer.prototype.at = function(eventName, handler, range) {
+		range = (typeof range == 'undefined') ? 500 : range;
+		if (eventName.indexOf("-") != -1) {
+			eventNames = eventName.split("-");
+			startTime = parseInt(eventNames[0]);
+			endTime = parseInt(eventNames[1]);
+			while (endTime >= startTime) {
+				this.handlers[startTime.toString()] = this.handlers[startTime.toString()] || [];
+		        this.handlers[startTime.toString()].push(handler);
+				startTime += range;
+			}
+		} else if (eventName.indexOf(",") != -1) {
 			eventNames = eventName.split(",");
 			for (var i in eventNames) {
 				this.handlers[eventNames[i]] = this.handlers[eventNames[i]] || [];
