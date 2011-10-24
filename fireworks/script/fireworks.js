@@ -233,7 +233,7 @@ function Firework(oC,startX,startY,burstX,burstY,burstType,nRadius,nParticles,nC
     fc.animator.enqueue(self.particles[i],self.particles[i].animate,self.beginFade);
     var sID = 'boom'+parseInt(Math.random()*8, 10);
     if (soundManager.ok()) {
-      soundManager.play(sID, {pan: fc.getPanX(self.x)});
+      //soundManager.play(sID, {pan: fc.getPanX(self.x)});
     }
   };
 
@@ -328,7 +328,7 @@ function Firework(oC,startX,startY,burstX,burstY,burstType,nRadius,nParticles,nC
   self.slideTo(burstX,burstY);
   var sID = 'fire'+parseInt(Math.random()*2, 10);
   if (soundManager.ok()) {
-    soundManager.play(sID, {pan: fc.getPanX(self.x)});
+    //soundManager.play(sID, {pan: fc.getPanX(self.x)});
   }
   fc.animator.start();
 
