@@ -5,11 +5,20 @@ body {
 	font-family: helvetica, sans serif;
 }
 
+a {
+	color: #fff;
+}
+
+a:visited {
+	color: #fff;
+}
+
 #container {
 	width: 640px;
 	margin-right: auto;
 	margin-left: auto;
-	margin-top: 30px;
+	position: relative;
+	margin-top: 10%;
 }
 
 .text {
@@ -24,7 +33,7 @@ body {
 	-webkit-transition: opacity 600ms linear;
 	-moz-transition: opacity 600ms linear;
 	position: absolute;
-	top: 380px;
+	top: 360px;
 	width: 640px;
 }
 
