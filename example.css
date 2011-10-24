@@ -1,0 +1,36 @@
+body {
+	background-color: #282828;
+	color: #fff;
+	font-family: helvetica, sans serif;
+}
+
+#container {
+	width: 640px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 30px;
+}
+
+.text {
+	margin-top: 20px;	
+}
+
+.text h2 {
+	color: #f90;
+}
+
+#intro, #outro {
+	-webkit-transition: opacity 600ms linear;
+	-moz-transition: opacity 600ms linear;
+	position: absolute;
+	top: 380px;
+	width: 640px;
+}
+
+.hide {
+	opacity: 0;
+}
+
+.show {
+	opacity: 1;
+}

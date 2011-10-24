@@ -1,69 +1,62 @@
 <html>
-<head>
-	<script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
-	<script src="YoutubePlayer.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
-</head>
-<body>
-<div id="container">
-<div id="video">
-	<div id="videoEmbed"></div>
-	<script type="text/javascript">
+	<head>
+		<title>YoutubePlayer with Timed Events Example</title>
+		<link rel="stylesheet" type="text/css" href="fireworks/style/fireworks.css" media="screen" />
+
+		<script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+		<script src="YoutubePlayer.js"></script>
+
+		<script type="text/javascript" src="fireworks/script/soundmanager2-nodebug-jsmin.js"></script>
+		<script type="text/javascript" src="fireworks/script/fireworks.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="example.css" media="screen" />
+		<script type="text/javascript" src="example.js"></script>
+	</head>
+	<body>
 	
-		// don't change these variables
-		var p 					 	= false;
-		var videoTimeRaw	= 0;
-		var currentTime 	= 0;
-		
-		// every 100ms do the following:
-		//   - see if a video is playing. if it is:
-		//   		-- increment the currentTime tracker 100	
-		//   		-- fires an event that matches that currentTime
-		timeCheck = setInterval(function() {	
-			if (p != false) {
-				currentTime += 100;
-				YTVideo.fireEvent(currentTime.toString());
-			}
-		}, 100);
-		
-		// configure these variables
-		var vidId 				= 'videoEmbed';		// the ID of the div holding the video
-		var vidYTId				= 'XhLrlhFzAjA';	// the ID of the video from YouTube
-		
-		// set-up the video
-		var YTVideo = new YoutubePlayer(vidId, vidYTId,{
-		    width: 640,
-		    height: 360,
-				chromeless: true,
-				ytparams: { rel: 0, showsearch: 0 },
-		    attrs:  { class: 'ytembed' }
-		});
+		<!-- fireworks divs -->
+		<div id="fireworks-template">
+	 		<div id="fw" class="firework"></div>
+	 		<div id="fp" class="fireworkParticle"><img src="fireworks/image/particles.gif" alt="" /></div>
+		</div>
+		<div id="fireContainer" style="width: 800px; margin-right: auto; margin-left: auto;"></div>
+
+		<!-- content & video divs -->
+		<div id="container">
+			<div id="video">
+				<div id="videoEmbed"></div>
+			</div>
+			<div id="intro" class="text show">
+				<h2>YouTube Video Timed Events Example</h2>
+				
+				<p>
+						I've been playing around with the idea of timing events to occur on a web page to specific moments in a YouTube video. At the
+						end of the day this is the equivalent of a stupid pet trick but I did make it work. This example uses YoutubePlayer, SWFObject,
+						and the YouTube JavaScript API.
+				</p>
+				
+				<p>
+						When you click play this is what will happen:
+						<ul>
+							<li> On the "play" event this intro text will fade away &amp; a timer will start.</li>
+							<li> Between 15 seconds and 21 seconds in the video something not so subtle happens.</li>
+							<li> On the "end" event some outro text will fade in &amp; the timer will stop.</li>
+						</ul>
+				</p>
+			</div>
+			<div id="outro" class="text hide">
+				<h2>YouTube Video Timed Events Example</h2>
+				
+				<p>
+						Thanks for watching this simple example of using timed events with YouTube videos. At some point I'll write up some better docs
+						and a real blog post on this functionality that I've created.
+				</p>
+				
+				<p>
+					You should be able to scrub and replay this video to your hearts content and still get the fireworks to fire off.
+				</p>
+			</div>
+		</div>
 	
-		// listen for the standard events and note that the video ISN'T playing
-		YTVideo.on('unstarted,ended,paused,buffering,cued', function() {
-			p = false;
-		});
-		
-		// listen for when the video is played. update the currentTime incrementor based on
-		// where the user is in the video. note that the video IS playing.
-		YTVideo.on('playing', function() {
-			videoTimeRaw = document.getElementById(vidId).getCurrentTime();
-			currentTime = Math.round(videoTimeRaw*10)*100;
-			p = true;
-			
-			/* if you have anything else that should happen when a user hits play stick it here */
-		});
-		
-		// listen for when the video reaches 5000 milliseconds and do something
-		YTVideo.at('5000', function() {
-			console.log("5 seconds in");
-		});
-		
-	</script>
-</div>
-<div id="modify">
-hello world
-</div>
-</div>
-</body>
+	</body>
 </html>
