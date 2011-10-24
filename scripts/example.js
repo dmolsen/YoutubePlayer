@@ -56,6 +56,6 @@ YTVideo.on('playing', function() {
 });
 
 // between 15secs and 21secs shoot off a firework every half a second
-YTVideo.at('15000-21000', function() {
-	createFirework(15,28,3,1,null,null,null,null,false,true);
+YTVideo.at('13000-20000', function() {
+	createFirework(14,73,3,2,null,null,null,20,true,true);
 }, 500);
