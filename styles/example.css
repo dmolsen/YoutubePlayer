@@ -37,6 +37,14 @@ a:visited {
 	width: 640px;
 }
 
+#intro {
+	z-index: 2;
+}
+
+#outro {
+	z-index: 1;
+}
+
 .hide {
 	opacity: 0;
 }
