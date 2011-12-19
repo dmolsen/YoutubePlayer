@@ -26,12 +26,12 @@ YoutubePlayer takes an optional 3rd object parameter to overload the default beh
 	var inceptionTrailer = new YoutubePlayer('inception', '66TuSJo4dZM', {
 	    width: 640,
 	    height: 360,
-	    params: { allowFullScreen: 1 },
+	    objparams: { allowFullScreen: "true" },
 			ytparams: { rel: 0, showinfo: 0 },
 	    attrs:  { class: 'ytembed' }
 	});
 
-	All fields are optional, the defaults will be used if not included. 'ytparams' are for the [YouTube Embedded Player Paramters](http://code.google.com/apis/youtube/player_parameters.html).
+All fields are optional, the defaults will be used if not included. 'ytparams' are for the [YouTube Embedded Player Paramters](http://code.google.com/apis/youtube/player_parameters.html).
 
 To listen to playback events, add a handler to the above objects for the supported events.
 
