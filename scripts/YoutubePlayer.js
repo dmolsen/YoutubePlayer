@@ -77,7 +77,7 @@
 		}
         videoUrl = videoUrl.replace('{videoId}', this.videoId);
         videoUrl = videoUrl.replace('{playerId}', this.id);
-		videoUrl = videoUrl.replace('{yturlparams', yturlparams);
+		videoUrl = videoUrl.replace('{yturlparams}', yturlparams);
 
         if(!swfobject) {
             throw new ReferenceError('YoutubePlayer depends on the SWFObject library but it is missing.');
