@@ -4,6 +4,10 @@ YoutubePlayer is a JavaScript wrapper for YouTube's flash player that provides a
 	
 Thanks to James Coglan for coming up with some [great ideas](http://blog.jcoglan.com/2008/05/22/dispatching-youtube-api-events-to-individual-javascript-objects/) on overcoming the limited Flash-JavaScript communication offered by the YouTube APIs with a very well designed interface. Thanks to Anurag Mishra for putting together the [initial release](https://github.com/AnuragMishra/YoutubePlayer).Thanks to Ryan Schneider for [providing code](https://github.com/ryanschneider/YoutubePlayer/blob/master/YoutubePlayer.js) to customize the player.
 
+## Demo
+
+See a demo of the script at [http://dmolsen.com/youtube-player/](http://dmolsen.com/youtube-player/). It was also used in West Virginia University's [2011 Holiday Card project](http://happyholidays.wvu.edu/).
+
 ## Usage
 
 Include `YoutubePlayer.js` and its dependency `SWFObject`.
@@ -48,8 +52,6 @@ To listen to time events, add a handler to the above objects for the supported e
 	inceptionTrailer.at('5000', function() {
 		alert("You're five seconds into the Inception trailer.");
 	});
-
-See a demo of the script at [http://dmolsen.com/youtube-player/](http://dmolsen.com/youtube-player/).
 
 ## List of Supported Events Using videoObj.on
 
