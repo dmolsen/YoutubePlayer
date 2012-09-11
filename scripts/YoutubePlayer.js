@@ -1,4 +1,7 @@
 (function(global) {
+	
+	var playerId = "";
+	
     /**
      * Creates a new YoutubePlayer object
      *
@@ -134,12 +137,10 @@
      */
     YoutubePlayer.prototype.onReady = function() {
         var player = document.getElementById(this.id);
-        var callbackStr = 'YoutubePlayer.dispatchEvent("{id}")';
-        var callback = callbackStr.replace("{id}", this.id);
-
-        player.addEventListener('onStateChange', callback);
+		playerId = this.id;
+		player.addEventListener("onStateChange", "YoutubePlayer.dispatchEvent");
     };
-
+	
     /**
      * Receives notification of player state changes
      *
@@ -219,11 +220,9 @@
      *
      * @private
      */
-    YoutubePlayer.dispatchEvent = function(playerId) {
-        var player = YoutubePlayer.findById(playerId);
-        return function(eventId) {
-            player.notifyEvent(eventId);
-        };
+    YoutubePlayer.dispatchEvent = function(eventId) {
+		var player = YoutubePlayer.findById(playerId);
+		player.notifyEvent(eventId);
     };
 
     /**
@@ -257,3 +256,4 @@
     };
 
 })(window);
+
